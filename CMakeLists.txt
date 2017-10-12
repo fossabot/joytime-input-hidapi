@@ -80,6 +80,11 @@ GENERATE_EXPORT_HEADER(joytime-input-hidapi
   STATIC_DEFINE JOYTIME_INPUT_HIDAPI_BUILT_AS_STATIC
 )
 
+add_custom_command(TARGET joytime-input-hidapi PRE_BUILD
+  COMMAND ${CMAKE_COMMAND} -E copy_directory
+  $<TARGET_FILE_DIR:joytime-core>
+  $<TARGET_FILE_DIR:joytime-input-hidapi>)
+
 target_compile_definitions(joytime-input-hidapi_static PUBLIC JOYTIME_INPUT_HIDAPI_BUILT_AS_STATIC=1)
 
 # <HIDAPI>
