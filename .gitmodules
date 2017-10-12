@@ -1,0 +1,6 @@
+[submodule "deps/hidapi"]
+	path = deps/hidapi
+	url = https://github.com/signal11/hidapi.git
+[submodule "deps/joytime-core"]
+	path = deps/joytime-core
+	url = https://github.com/switch-joytime/joytime-core.git
