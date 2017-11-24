@@ -21,6 +21,10 @@ uint8_t* receiveBuffer(void* _handle, int desiredSize, int* bytesRead) {
   return buf;
 };
 
+void freeBuffer(uint8_t* buf) {
+  free(buf);
+};
+
 JOYTIME_INPUT_HIDAPI_EXPORT std::vector<Joytime::Controller> Joytime::scanForControllers() {
   std::vector<Joytime::Controller> controllers;
   hid_device_info* devices;
@@ -55,7 +59,7 @@ JOYTIME_INPUT_HIDAPI_EXPORT std::vector<Joytime::Controller> Joytime::scanForCon
         break;
     }
     if (foundOne) {
-      controllers.push_back(Joytime::Controller(type, static_cast<void*>(new Joytime::HIDAPI::Handle(connectionType, hid_open(vendor, currentDevice->product_id, currentDevice->serial_number))), &transmitBuffer, &receiveBuffer));
+      controllers.push_back(Joytime::Controller(type, static_cast<void*>(new Joytime::HIDAPI::Handle(connectionType, hid_open(vendor, currentDevice->product_id, currentDevice->serial_number))), &transmitBuffer, &receiveBuffer, &freeBuffer));
     }
     currentDevice = currentDevice->next;
   }
